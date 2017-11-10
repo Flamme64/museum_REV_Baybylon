@@ -22,11 +22,10 @@
 			var x = 50*(0.5-Math.random()) ;
 			var y = 10*(0.5-Math.random())+2 ; 
 			var z = 50*(0.5-Math.random()) ; 
-			sph.position = new BABYLON.Vector3(x,y,z) ; 
+			sph.position = new BABYLON.Vector3(x,y,z); 
 		}
-
 		return scene ;
- 
+
         }
 
 	function createPieces(engine){
@@ -37,7 +36,8 @@
 
 		var camera = createCamera(scene) ;
 		camera.applyGravity = true;
-		camera.ellipsoid = new BABYLON.Vector3(1.3, 1, 1.3);
+		camera.ellipsoid = new BABYLON.Vector3(1.3, 1.5, 1.3);
+		camera.speed = 0.75
 		camera.checkCollisions = true;
 
 		var light = createLight(scene) ; 
@@ -47,18 +47,18 @@
 		//sol
 		createSol(scene,size*2);		
 		//hall
-		var hall = createHall(scene,size,size/2,size/6,epaisseur_mur);
+		var hall = createHall(scene, camera, size,size/2,size/6,epaisseur_mur);
 		//salle1
-		var salle1 = createPiece(scene,size/2,size/3,size/6,epaisseur_mur);
+		var salle1 = createPiece(scene, camera,size/2,size/3,size/6,epaisseur_mur);
 		salle1.rotation.y  =  3*( Math.PI/2);
 		salle1.position.x = size/2+epaisseur_mur/2;
 		//salle2
-		var salle2 = createPiece(scene,size/2,size/3,size/6,epaisseur_mur);
+		var salle2 = createPiece(scene, camera,size/2,size/3,size/6,epaisseur_mur);
 		salle2.rotation.y  =  3*( Math.PI/2);
 		salle2.position.x = 15+epaisseur_mur/2;
 		salle2.position.z = size/3;
 		//salle3
-		var salle3 = createPiece(scene,size/2,size/3,size/6,epaisseur_mur);
+		var salle3 = createPiece(scene, camera,size/2,size/3,size/6,epaisseur_mur);
 		salle3.rotation.y  = 3*( Math.PI/2);
 		salle3.position.x = size/2+epaisseur_mur/2;
 		salle3.position.z = -size/3;
@@ -70,7 +70,7 @@
 		stairs.position.z = -12.75;
 
 		//Def of Mezzanine
-		var mezzanine = createMezzanine(scene,30,15,3,0.5);
+		var mezzanine = createMezzanine(scene, camera,30,15,3,0.5);
 		mezzanine.position.x = 15+epaisseur_mur/2;
 		mezzanine.position.y = 5.01;
 
@@ -122,7 +122,11 @@
 			light6.setEnabled(false);
 		    }
 		},1000)
-		
+	
+		sph = create_white_sphere(scene, size/60,camera,0, 0 , "sfg");
+		sph1 = create_white_sphere(scene, size/60,camera,8, 0, "sfgo" );
+		sph2 = create_white_sphere(scene, size/60,camera,8, 10, "toto" );
+
 		anima_cam(scene,camera, size);
 		
 		return scene ;
@@ -167,7 +171,7 @@
  		return myparent;
  	}
 
- 		function createMezzanine(scene, longueur, largeur, hauteur, epaisseur_mur){
+ 		function createMezzanine(scene, camera, longueur, largeur, hauteur, epaisseur_mur){
 		var myparent= new BABYLON.Mesh.CreatePlane("parent", 1, scene);
 		myparent.isVisible = false;
 
@@ -215,7 +219,8 @@
 		tab2.rotation.y = 2*(Math.PI/2);
 		tab2.position.y = hauteur/2 + hauteur/5;
 		tab2.position.x = -(largeur/4) ;		
-		tab2.position.z = -longueur/2 + epaisseur_mur+0.01;		
+		tab2.position.z = -longueur/2 + epaisseur_mur+0.01;	
+		go_to_painting(scene, camera, tab2, -(largeur/4) , hauteur/2 + hauteur/5, -longueur/2 + epaisseur_mur+0.01, 0);
 
 		var tab1 =  createTableau(scene,1, mat_tableau);
 		tab1.parent = myparent;
@@ -292,7 +297,7 @@
  	}
 
 
-        function createPiece(scene,longueur, largeur, hauteur, epaisseur_mur){
+        function createPiece(scene, camera,longueur, largeur, hauteur, epaisseur_mur){
 
 		var myparent= new BABYLON.Mesh.CreateBox("parent", 1, scene);
 		myparent.isVisible = false;
@@ -426,7 +431,7 @@
         }
 
 
-        function createHall(scene,longueur, largeur, hauteur, epaisseur_mur){
+        function createHall(scene, camera,longueur, largeur, hauteur, epaisseur_mur){
 
 		var myparent= new BABYLON.Mesh.CreateBox("parent", 1, scene);
 		myparent.isVisible = false;
@@ -474,14 +479,18 @@
 		tab2.rotation.y = 2*(Math.PI/2);
 		tab2.position.y = hauteur/2 + hauteur/4;
 		tab2.position.x = -(largeur/4) ;		
-		tab2.position.z = -longueur/2 + epaisseur_mur +0.01;		
+		tab2.position.z = -longueur/2 + epaisseur_mur +0.01;	
+		// go_to_painting(scene, camera, tab2,  -(largeur/4) , hauteur/2 + hauteur/4,-longueur/2 + epaisseur_mur +0.01, 0) 
+	
 
 		var tab1 = createTableau(scene,1.3, mat_tableau);
 		tab1.parent = myparent;
 		tab1.rotation.y = 2*(Math.PI/2);
 		tab1.position.y = hauteur/2 + hauteur/4;
 		tab1.position.x = largeur/4 ;		
-		tab1.position.z = -longueur/2 + epaisseur_mur +0.01;			
+		tab1.position.z = -longueur/2 + epaisseur_mur +0.01;
+		// go_to_painting(scene, camera, tab1,  -(largeur/4) , hauteur/2 + hauteur/4,-longueur/2 + epaisseur_mur +0.01, 0) 
+		
 
 		var murGauche = BABYLON.MeshBuilder.CreateBox("murGauche", {height: hauteur,width:longueur, depth: epaisseur_mur }, scene);
 		murGauche.rotation.y  =   Math.PI/2;		
@@ -491,27 +500,30 @@
 		murGauche.material = mat;
 		murGauche.checkCollisions = true;
 
-
 		var tab3 = createTableau(scene,1, mat_tableau);
-		tab3.parent = myparent;
 		tab3.rotation.y = 3*(Math.PI/2);
 		tab3.position.y = hauteur/2 + hauteur/4;
 		tab3.position.x = -largeur/2 + epaisseur_mur +0.01;			
-		tab3.position.z = longueur/4;	
+		tab3.position.z = longueur/4;
+		// go_to_painting(scene, camera, tab3,  -(largeur/4) , hauteur/2 + hauteur/4,-longueur/2 + epaisseur_mur +0.01, 0) 
 
-	
+
 		var tab4 = createTableau(scene,1, mat_tableau);
 		tab4.parent = myparent;
 		tab4.rotation.y = 3*(Math.PI/2);
 		tab4.position.y = hauteur/2 + hauteur/5;
-		tab4.position.x = -largeur/2 + epaisseur_mur +0.01;		
+		tab4.position.x = -largeur/2 + epaisseur_mur +0.01;	
+		// go_to_painting(scene, camera, tab4,  -(largeur/4) , hauteur/2 + hauteur/4,-longueur/2 + epaisseur_mur +0.01, 0) 
+
 
 		var tab5 = createTableau(scene,1, mat_tableau);
 		tab5.parent = myparent;
 		tab5.rotation.y = 3*(Math.PI/2);
 		tab5.position.y = hauteur/2 + hauteur/4;
 		tab5.position.x = -largeur/2 + epaisseur_mur +0.01;			
-		tab5.position.z = -longueur/4;		
+		tab5.position.z = -longueur/4;
+		// go_to_painting(scene, camera, tab5,  -(largeur/4) , hauteur/2 + hauteur/4,-longueur/2 + epaisseur_mur +0.01, 0) 
+
 
 		var tab6 =createTableau(scene,0.8, mat_tableau);
 		tab6.parent = myparent;
@@ -683,6 +695,39 @@
 			panneau.checkCollisions = true;
 
 			return myparent;			
+	 	}
+
+
+	 	function create_white_sphere(scene, size,camera, posX, posZ, name){
+
+			var name = BABYLON.Mesh.CreateSphere("sph",20,size,scene) ; 
+	 		name.visibility = 0.2;
+			name.position = new BABYLON.Vector3(posX,1, posZ);
+
+			go_to_sphere(scene,camera,name,posX, posZ);
+
+	 		return name;
+	 	}
+
+	 	function go_to_sphere(scene, camera, sph, posX,posZ) {
+
+	 		sph.actionManager = new BABYLON.ActionManager(scene);
+			
+			var actionX = new BABYLON.InterpolateValueAction(BABYLON.ActionManager.NothingTrigger, camera, "position.x", posX, 1000);
+			var actionZ = new BABYLON.InterpolateValueAction(BABYLON.ActionManager.NothingTrigger, camera, "position.z", posZ, 1000);
+	 		sph.actionManager.registerAction(new BABYLON.CombineAction(BABYLON.ActionManager.OnPickTrigger, [actionX, actionZ ]));
+	 	}
+
+	 	function go_to_painting(scene, camera, painting, posX, posY, posZ, rotY) {
+
+	 		painting.actionManager = new BABYLON.ActionManager(scene);
+			
+			var actionX = new BABYLON.InterpolateValueAction(BABYLON.ActionManager.NothingTrigger, camera, "position.x", posX, 1000);
+			var actionZ = new BABYLON.InterpolateValueAction(BABYLON.ActionManager.NothingTrigger, camera, "position.z", posZ, 1000);
+			var actionY = new BABYLON.InterpolateValueAction(BABYLON.ActionManager.NothingTrigger, camera, "position.y", posY, 1000);
+			var actionRot_Y = new BABYLON.InterpolateValueAction(BABYLON.ActionManager.NothingTrigger, camera, "rotation.y", rotY, 1000);
+	 		
+	 		painting.actionManager.registerAction(new BABYLON.CombineAction(BABYLON.ActionManager.OnPickTrigger, [actionX, actionY, actionZ, actionRot_Y ]));
 	 	}
 
 
@@ -1023,5 +1068,7 @@
 			  camera_visit.animations.push(animation_rotY);
 			  camera_visit.animations.push(animation_posZ);
 
-			  scene.beginAnimation(camera_visit, 0, 1200, false);		
+			  // scene.beginAnimation(camera_visit, 1200, 1200, false);		
 	}
+
+
