@@ -70,7 +70,7 @@
 		stairs.position.z = -12.75;
 
 		//Def of Mezzanine
-		var mezzanine = createMezzanine(scene, camera,30,15,3,0.5);
+		var mezzanine = createMezzanine(scene,camera, size,size/2,3,epaisseur_mur);
 		mezzanine.position.x = 15+epaisseur_mur/2;
 		mezzanine.position.y = 5.01;
 
@@ -78,12 +78,12 @@
 		var elevator = create_ascensor(scene, size/10, size*0.3, epaisseur_mur);
 		elevator.position =  new BABYLON.Vector3(size/4 - size/10 - epaisseur_mur - 0.1,0, size/2 -size/10 - epaisseur_mur - 0.1) ; 
 		
-		var light1 = new BABYLON.SpotLight("spotLight", new BABYLON.Vector3(11.5,3.75,11.5), new BABYLON.Vector3(0, 0, 1), -Math.PI/6, 2, scene);
-		var light2 = new BABYLON.SpotLight("spotLight", new BABYLON.Vector3(19,4.2,12.5), new BABYLON.Vector3(1, 0, 0), -Math.PI/6, 2, scene);
-		var light3 = new BABYLON.SpotLight("spotLight", new BABYLON.Vector3(11.5,3.75,2), new BABYLON.Vector3(0, 0, 1), -Math.PI/6, 2, scene);
-		var light4 = new BABYLON.SpotLight("spotLight", new BABYLON.Vector3(19,4,2.5), new BABYLON.Vector3(1, 0, 0), -Math.PI/6, 2, scene);
-		var light5 = new BABYLON.SpotLight("spotLight", new BABYLON.Vector3(11.5,3.75,-8.5), new BABYLON.Vector3(0, 0, 1), -Math.PI/6, 2, scene);
-		var light6 = new BABYLON.SpotLight("spotLight", new BABYLON.Vector3(19,4,-12.5), new BABYLON.Vector3(1, 0, 0), -Math.PI/6, 2, scene);
+		var light1 = new BABYLON.SpotLight("spotLight", new BABYLON.Vector3(11.5,3.4,10.75), new BABYLON.Vector3(0, 0, 1), -Math.PI/6, 2, scene);
+		var light2 = new BABYLON.SpotLight("spotLight", new BABYLON.Vector3(18.25,3.4,12.5), new BABYLON.Vector3(1, 0, 0), -Math.PI/6, 2, scene);
+		var light3 = new BABYLON.SpotLight("spotLight", new BABYLON.Vector3(11.5,3.4,1), new BABYLON.Vector3(0, 0, 1), -Math.PI/6, 2, scene);
+		var light4 = new BABYLON.SpotLight("spotLight", new BABYLON.Vector3(18.25,3.4,2.5), new BABYLON.Vector3(1, 0, 0), -Math.PI/6, 2, scene);
+		var light5 = new BABYLON.SpotLight("spotLight", new BABYLON.Vector3(11.5,3.4,-9.5), new BABYLON.Vector3(0, 0, 1), -Math.PI/6, 2, scene);
+		var light6 = new BABYLON.SpotLight("spotLight", new BABYLON.Vector3(18.25,3.4,-12.5), new BABYLON.Vector3(1, 0, 0), -Math.PI/6, 2, scene);
 
 		light2.intensity = light1.intensity = light3.intensity = light4.intensity = light5.intensity = light6.intensity = 0.4;
 		light1.range = light2.range = light3.range = light4.range = light5.range = light6.range =  10;
@@ -127,6 +127,7 @@
 		sph1 = create_white_sphere(scene, size/60,camera,8, 0, "sfgo" );
 		sph2 = create_white_sphere(scene, size/60,camera,8, 10, "toto" );
 
+    // visite virtuelle du musée
 		anima_cam(scene,camera, size);
 		
 		return scene ;
@@ -343,19 +344,25 @@
 		murDerriere.checkCollisions = true;
 
 		var mat_tableau = new BABYLON.StandardMaterial("mat_tableau",scene); 
-		mat_tableau.diffuseTexture=new BABYLON.Texture("assets/textures/tableau_meme1.jpg",scene);
-
-		var tab2 = createTableau(scene,1, mat_tableau);
+		mat_tableau.diffuseTexture=new BABYLON.Texture("assets/textures/surf.jpg",scene);
+		var mat_tableau1 = new BABYLON.StandardMaterial("mat_tableau",scene); 
+		mat_tableau1.diffuseTexture=new BABYLON.Texture("assets/textures/brest.jpg",scene);
+		var mat_tableau2 = new BABYLON.StandardMaterial("mat_tableau",scene); 
+		mat_tableau2.diffuseTexture=new BABYLON.Texture("assets/textures/falaise.jpg",scene);
+		var mat_tableau3 = new BABYLON.StandardMaterial("mat_tableau",scene); 
+		mat_tableau3.diffuseTexture=new BABYLON.Texture("assets/textures/chat.jpg",scene);
+		
+		var tab2 = createTableau(scene,1.5, mat_tableau);
 		tab2.parent = myparent;
 		tab2.rotation.y = 2*(Math.PI/2);
-		tab2.position.y = hauteur/2 + hauteur/3;
+		tab2.position.y = hauteur/2 + hauteur/5;
 		tab2.position.x = -(largeur/4) ;		
 		tab2.position.z = -longueur/2 + epaisseur_mur;		
 
-		var tab1 = createTableau(scene,1, mat_tableau);
+		var tab1 = createTableau(scene,1.5, mat_tableau1);
 		tab1.parent = myparent;
 		tab1.rotation.y = 2*(Math.PI/2);
-		tab1.position.y = hauteur/2 + hauteur/3;
+		tab1.position.y = hauteur/2 + hauteur/5;
 		tab1.position.x = largeur/4 ;		
 		tab1.position.z = -longueur/2 + epaisseur_mur;			
 
@@ -367,24 +374,24 @@
 		murDroite.material = mat1;
 		murDroite.checkCollisions = true;
 
-		var tab3 = createTableau(scene,1, mat_tableau);
+		var tab3 = createTableau(scene,1.5, mat_tableau2);
 		tab3.parent = myparent;
 		tab3.rotation.y = 3*(Math.PI/2);
-		tab3.position.y = hauteur/2 + hauteur/4;
+		tab3.position.y = hauteur/2 + hauteur/5;
 		tab3.position.x = -largeur/2 + epaisseur_mur +0.01;			
 		tab3.position.z = longueur/4;	
 
 	
-		var tab4 = createTableau(scene,1, mat_tableau);
+		var tab4 = createTableau(scene,1.5, mat_tableau3);
 		tab4.parent = myparent;
 		tab4.rotation.y = 3*(Math.PI/2);
 		tab4.position.y = hauteur/2 + hauteur/5;
 		tab4.position.x = -largeur/2 + epaisseur_mur +0.01;		
 
-		var tab5 = createTableau(scene,1, mat_tableau);
+		var tab5 = createTableau(scene,1.5, mat_tableau);
 		tab5.parent = myparent;
 		tab5.rotation.y = 3*(Math.PI/2);
-		tab5.position.y = hauteur/2 + hauteur/4;
+		tab5.position.y = hauteur/2 + hauteur/5;
 		tab5.position.x = -largeur/2 + epaisseur_mur +0.01;			
 		tab5.position.z = -longueur/4;	
 
@@ -397,24 +404,24 @@
 		murGauche.material = mat1;
 		murGauche.checkCollisions = true;
 
-		var tab6 = createTableau(scene,1, mat_tableau);
+		var tab6 = createTableau(scene,1.5, mat_tableau2);
 		tab6.parent = myparent;
 		tab6.rotation.y = (Math.PI/2);
-		tab6.position.y = hauteur/2 + hauteur/4;
+		tab6.position.y = hauteur/2 + hauteur/5;
 		tab6.position.x = largeur/2 - epaisseur_mur -0.01;			
 		tab6.position.z = longueur/4;	
 
 	
-		var tab7 = createTableau(scene,1, mat_tableau);
+		var tab7 = createTableau(scene,1.5, mat_tableau1);
 		tab7.parent = myparent;
 		tab7.rotation.y = (Math.PI/2);
 		tab7.position.y = hauteur/2 + hauteur/5;
 		tab7.position.x = largeur/2 - epaisseur_mur -0.01;		
 
-		var tab8 = createTableau(scene,1, mat_tableau);
+		var tab8 = createTableau(scene,1.5, mat_tableau3);
 		tab8.parent = myparent;
 		tab8.rotation.y = (Math.PI/2);
-		tab8.position.y = hauteur/2 + hauteur/4;
+		tab8.position.y = hauteur/2 + hauteur/5;
 		tab8.position.x = largeur/2 - epaisseur_mur -0.01;			
 		tab8.position.z = -longueur/4;
 
@@ -472,9 +479,14 @@
 
 		var mat_tableau = new BABYLON.StandardMaterial("mat_tableau",scene); 
 		mat_tableau.diffuseTexture=new BABYLON.Texture("assets/textures/Leonardo-Dicaprio-Cheers.jpg",scene);
+		var mat_tableau1 = new BABYLON.StandardMaterial("mat_tableau",scene); 
+		mat_tableau1.diffuseTexture=new BABYLON.Texture("assets/textures/campagne.jpg",scene);
+		var mat_tableau2 = new BABYLON.StandardMaterial("mat_tableau",scene); 
+		mat_tableau2.diffuseTexture=new BABYLON.Texture("assets/textures/shaker.jpg",scene);
+		var mat_tableau3 = new BABYLON.StandardMaterial("mat_tableau",scene); 
+		mat_tableau3.diffuseTexture=new BABYLON.Texture("assets/textures/bayonne.jpg",scene);
 
-
-		var tab2 = createTableau(scene,1.2, mat_tableau);
+		var tab2 = createTableau(scene,1.5, mat_tableau);
 		tab2.parent = myparent;
 		tab2.rotation.y = 2*(Math.PI/2);
 		tab2.position.y = hauteur/2 + hauteur/4;
@@ -483,7 +495,7 @@
 		// go_to_painting(scene, camera, tab2,  -(largeur/4) , hauteur/2 + hauteur/4,-longueur/2 + epaisseur_mur +0.01, 0) 
 	
 
-		var tab1 = createTableau(scene,1.3, mat_tableau);
+		var tab1 = createTableau(scene,1.5, mat_tableau1);
 		tab1.parent = myparent;
 		tab1.rotation.y = 2*(Math.PI/2);
 		tab1.position.y = hauteur/2 + hauteur/4;
@@ -500,7 +512,8 @@
 		murGauche.material = mat;
 		murGauche.checkCollisions = true;
 
-		var tab3 = createTableau(scene,1, mat_tableau);
+		var tab3 = createTableau(scene,1.5, mat_tableau2);
+		tab3.parent = myparent;
 		tab3.rotation.y = 3*(Math.PI/2);
 		tab3.position.y = hauteur/2 + hauteur/4;
 		tab3.position.x = -largeur/2 + epaisseur_mur +0.01;			
@@ -516,7 +529,7 @@
 		// go_to_painting(scene, camera, tab4,  -(largeur/4) , hauteur/2 + hauteur/4,-longueur/2 + epaisseur_mur +0.01, 0) 
 
 
-		var tab5 = createTableau(scene,1, mat_tableau);
+		var tab5 = createTableau(scene,1.5, mat_tableau1);
 		tab5.parent = myparent;
 		tab5.rotation.y = 3*(Math.PI/2);
 		tab5.position.y = hauteur/2 + hauteur/4;
@@ -525,26 +538,20 @@
 		// go_to_painting(scene, camera, tab5,  -(largeur/4) , hauteur/2 + hauteur/4,-longueur/2 + epaisseur_mur +0.01, 0) 
 
 
-		var tab6 =createTableau(scene,0.8, mat_tableau);
+		var tab6 =createTableau(scene,0.8, mat_tableau3);
 		tab6.parent = myparent;
 		tab6.position.y = hauteur/2 + hauteur/3;
 		tab6.position.z = longueur/2 - epaisseur_mur -0.01;			
 
-		var tab7 = createTableau(scene,1, mat_tableau);
+		var tab7 = createTableau(scene,1.5, mat_tableau2);
 		tab7.parent = myparent;
 		tab7.rotation.y = (Math.PI/2);
-		tab7.position.y = hauteur/2 + hauteur/5;
-		tab7.position.x = largeur/2 - epaisseur_mur -0.01;	
-		tab7.position.z = longueur/6;			
+		tab7.position = new BABYLON.Vector3( largeur/2 - epaisseur_mur -0.01 , hauteur/2 + hauteur/5, longueur/6) ;		
 
-
-		var tab8 = createTableau(scene,1, mat_tableau);
+		var tab8 = createTableau(scene,1.5, mat_tableau3);
 		tab8.parent = myparent;
 		tab8.rotation.y = (Math.PI/2);
-		tab8.position.y = hauteur/2 + hauteur/4;
-		tab8.position.x = largeur/2 - epaisseur_mur -0.01;			
-		tab8.position.z = -longueur/6;	
-
+		tab8.position = new BABYLON.Vector3(largeur/2 - epaisseur_mur -0.01,hauteur/2 + hauteur/4, -longueur/6) ;
 
 		var mat_sign = new BABYLON.StandardMaterial("mat_tableau",scene); 
 		mat_sign.diffuseTexture=new BABYLON.Texture("assets/textures/pancarte_entree.png",scene);
@@ -970,12 +977,12 @@
 			  });
 
 			  keysY.push({
-			    frame: 150,
+			    frame: 160,
 			    value: Math.PI
 			  });
 
 			  keysY.push({
-			    frame: 175,
+			    frame: 200,
 			    value: 7*Math.PI/4
 			  });			  
 			  keysY.push({
@@ -995,7 +1002,7 @@
 			    value: Math.PI/2
 			  });
 			  keysY.push({
-			    frame: 450,
+			    frame: 460,
 			    value: Math.PI/2
 			  });
 			  keysY.push({
@@ -1068,6 +1075,55 @@
 			  camera_visit.animations.push(animation_rotY);
 			  camera_visit.animations.push(animation_posZ);
 
+    // scene.beginAnimation(camera_visit, 0, 1100, false);		
+	}
+
+	function check_spot(){
+
+		var light1 = new BABYLON.SpotLight("spotLight", new BABYLON.Vector3(11.5,3.4,10.75), new BABYLON.Vector3(0, 0, 1), -Math.PI/6, 2, scene);
+		var light2 = new BABYLON.SpotLight("spotLight", new BABYLON.Vector3(18.25,3.4,12.5), new BABYLON.Vector3(1, 0, 0), -Math.PI/6, 2, scene);
+		var light3 = new BABYLON.SpotLight("spotLight", new BABYLON.Vector3(11.5,3.4,1), new BABYLON.Vector3(0, 0, 1), -Math.PI/6, 2, scene);
+		var light4 = new BABYLON.SpotLight("spotLight", new BABYLON.Vector3(18.25,3.4,2.5), new BABYLON.Vector3(1, 0, 0), -Math.PI/6, 2, scene);
+		var light5 = new BABYLON.SpotLight("spotLight", new BABYLON.Vector3(11.5,3.4,-9.5), new BABYLON.Vector3(0, 0, 1), -Math.PI/6, 2, scene);
+		var light6 = new BABYLON.SpotLight("spotLight", new BABYLON.Vector3(18.25,3.4,-12.5), new BABYLON.Vector3(1, 0, 0), -Math.PI/6, 2, scene);		
+
+		light2.intensity = light1.intensity = light3.intensity = light4.intensity = light5.intensity = light6.intensity = 0.4;
+		light1.range = light2.range = light3.range = light4.range = light5.range = light6.range =  10;
+
+	    if(camera.position.x> 8 && camera.position.z> 9){
+			light1.setEnabled(true);
+			light2.setEnabled(true);
+			light3.setEnabled(false);
+			light4.setEnabled(false);
+			light5.setEnabled(false);
+			light6.setEnabled(false);
+
+	    }
+	    else if (camera.position.x> 8 && (camera.position.z< 2 && camera.position.z> -2 )){
+			light1.setEnabled(false);
+			light2.setEnabled(false);
+			light3.setEnabled(true);
+			light4.setEnabled(true);
+			light5.setEnabled(false);
+			light6.setEnabled(false);
+	    }
+	    else if (camera.position.x> 8 && camera.position.z< -6 ){
+			light1.setEnabled(false);
+			light2.setEnabled(false);
+			light3.setEnabled(false);
+			light4.setEnabled(false);
+			light5.setEnabled(true);
+			light6.setEnabled(true);
+	    }
+	    else if (camera.position.x< 8){
+			light1.setEnabled(false);
+			light2.setEnabled(false);
+			light3.setEnabled(false);
+			light4.setEnabled(false);
+			light5.setEnabled(false);
+			light6.setEnabled(false);
+	    }		
+	}
 			  // scene.beginAnimation(camera_visit, 1200, 1200, false);		
 	}
 
