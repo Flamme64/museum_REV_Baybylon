@@ -298,7 +298,7 @@
  	}
 
 
-        function createPiece(scene, camera,longueur, largeur, hauteur, epaisseur_mur){
+        function createPiece(scene,longueur, largeur, hauteur, epaisseur_mur){
 
 		var myparent= new BABYLON.Mesh.CreateBox("parent", 1, scene);
 		myparent.isVisible = false;
@@ -438,7 +438,7 @@
         }
 
 
-        function createHall(scene, camera,longueur, largeur, hauteur, epaisseur_mur){
+        function createHall(scene,longueur, largeur, hauteur, epaisseur_mur){
 
 		var myparent= new BABYLON.Mesh.CreateBox("parent", 1, scene);
 		myparent.isVisible = false;
@@ -491,18 +491,14 @@
 		tab2.rotation.y = 2*(Math.PI/2);
 		tab2.position.y = hauteur/2 + hauteur/4;
 		tab2.position.x = -(largeur/4) ;		
-		tab2.position.z = -longueur/2 + epaisseur_mur +0.01;	
-		// go_to_painting(scene, camera, tab2,  -(largeur/4) , hauteur/2 + hauteur/4,-longueur/2 + epaisseur_mur +0.01, 0) 
-	
+		tab2.position.z = -longueur/2 + epaisseur_mur +0.01;		
 
 		var tab1 = createTableau(scene,1.5, mat_tableau1);
 		tab1.parent = myparent;
 		tab1.rotation.y = 2*(Math.PI/2);
 		tab1.position.y = hauteur/2 + hauteur/4;
 		tab1.position.x = largeur/4 ;		
-		tab1.position.z = -longueur/2 + epaisseur_mur +0.01;
-		// go_to_painting(scene, camera, tab1,  -(largeur/4) , hauteur/2 + hauteur/4,-longueur/2 + epaisseur_mur +0.01, 0) 
-		
+		tab1.position.z = -longueur/2 + epaisseur_mur +0.01;			
 
 		var murGauche = BABYLON.MeshBuilder.CreateBox("murGauche", {height: hauteur,width:longueur, depth: epaisseur_mur }, scene);
 		murGauche.rotation.y  =   Math.PI/2;		
@@ -512,31 +508,27 @@
 		murGauche.material = mat;
 		murGauche.checkCollisions = true;
 
+
 		var tab3 = createTableau(scene,1.5, mat_tableau2);
 		tab3.parent = myparent;
 		tab3.rotation.y = 3*(Math.PI/2);
 		tab3.position.y = hauteur/2 + hauteur/4;
 		tab3.position.x = -largeur/2 + epaisseur_mur +0.01;			
-		tab3.position.z = longueur/4;
-		// go_to_painting(scene, camera, tab3,  -(largeur/4) , hauteur/2 + hauteur/4,-longueur/2 + epaisseur_mur +0.01, 0) 
+		tab3.position.z = longueur/4;	
 
-
+	
 		var tab4 = createTableau(scene,1, mat_tableau);
 		tab4.parent = myparent;
 		tab4.rotation.y = 3*(Math.PI/2);
 		tab4.position.y = hauteur/2 + hauteur/5;
-		tab4.position.x = -largeur/2 + epaisseur_mur +0.01;	
-		// go_to_painting(scene, camera, tab4,  -(largeur/4) , hauteur/2 + hauteur/4,-longueur/2 + epaisseur_mur +0.01, 0) 
-
+		tab4.position.x = -largeur/2 + epaisseur_mur +0.01;		
 
 		var tab5 = createTableau(scene,1.5, mat_tableau1);
 		tab5.parent = myparent;
 		tab5.rotation.y = 3*(Math.PI/2);
 		tab5.position.y = hauteur/2 + hauteur/4;
 		tab5.position.x = -largeur/2 + epaisseur_mur +0.01;			
-		tab5.position.z = -longueur/4;
-		// go_to_painting(scene, camera, tab5,  -(largeur/4) , hauteur/2 + hauteur/4,-longueur/2 + epaisseur_mur +0.01, 0) 
-
+		tab5.position.z = -longueur/4;		
 
 		var tab6 =createTableau(scene,0.8, mat_tableau3);
 		tab6.parent = myparent;
